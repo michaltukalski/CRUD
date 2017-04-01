@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "express": "4.15.*"
+    "body-parser": "^1.17.1",
+    "express": "4.15.*",
+    "mongodb": "2.2.*"
   },
   "devDependencies": {
     "nodemon": "1.11.*"
