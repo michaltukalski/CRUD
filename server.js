@@ -8,6 +8,8 @@ const port = 3000;
 let db;
 
 app.use(bodyParser.urlencoded({encode: true, extended:true}));
+app.use(express.static(__dirname +'/public'));
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 
@@ -41,5 +43,23 @@ app.post('/titles', (req, res)=> {
     console.info('Saved to database');
     res.redirect('/');;
   })
-
 })
+
+app.put('/titles', (req, res)=>{
+  db.collection('book').findOneAndUpdate({
+    title:'someTitle'
+  }, {
+    $set:{
+      title:req.body.title,
+      description: req.body.description
+    }
+  }, {
+    sort: {_id:-1},
+    upsert:true
+  }, (err, response) =>{
+    if(err){
+      return res.send(err);
+    }
+    res.send(response);
+  })
+});
